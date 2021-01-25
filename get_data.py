@@ -4,7 +4,7 @@ import os
 import shutil
 import subprocess
 
-SEND_IMAGES = True
+SEND_IMAGES = False
 RENDERED_DATA = True
 TARGET_FPS = 10
 SERVER = 'vishal@10.237.23.241'
@@ -63,6 +63,14 @@ def get_images_from_video(vid_path, target_fps):
     cap.release()
     cv2.destroyAllWindows()
 
+def get_data(vid_path):
+    vid_name = vid_path.split('/')[-1].split('.')[0]
+    if SEND_IMAGES:
+        get_images_from_video(vid_path, TARGET_FPS)
+        get_data_alphapose('frames', 'results-'+vid_name, False, RENDERED_DATA)
+        shutil.rmtree('frames')
+    else:
+        get_data_alphapose(vid_path, 'results-'+vid_name, True, RENDERED_DATA)
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -71,10 +79,5 @@ if __name__ == '__main__':
         exit()
 
     vid_path = sys.argv[1]
-    vid_name = vid_path.split('/')[-1].split('.')[0]
-    if SEND_IMAGES:
-        get_images_from_video(vid_path, TARGET_FPS)
-        get_data_alphapose('frames', 'results-'+vid_name, False, RENDERED_DATA)
-        shutil.rmtree('frames')
-    else:
-        get_data_alphapose(vid_path, 'results-'+vid_name, True, RENDERED_DATA)
+    get_data(vid_path)
+    

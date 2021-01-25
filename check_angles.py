@@ -2,17 +2,6 @@ import json
 import sys
 import math
   
-# Opening JSON file 
-f = open(sys.argv[1],) 
-  
-# returns JSON object as  
-# a dictionary 
-data = json.load(f) 
-  
-# the data is a list of dictionaries where each dictionary captures a frame
-# refer the github page for info on the contents of the dictionary
-# We have assumed the presence of just 1 person in the frame
-
 def calc_slope(p1,p2):
     if p1[0] - p2[0] == 0:
         return float('inf')
@@ -59,11 +48,27 @@ def read_angles(data):
 
     return angles
 
-angles = read_angles(data)
-frame = 1
-for angle in angles:
-    print('frame' , frame , ':' , angle)
-    frame+=1
+def get_angles(file_path):
+    # Opening JSON file 
+    f = open(file_path,) 
+    
+    # returns JSON object as  
+    # a dictionary 
+    data = json.load(f) 
+    
+    # the data is a list of dictionaries where each dictionary captures a frame
+    # refer the github page for info on the contents of the dictionary
+    # We have assumed the presence of just 1 person in the frame
+    angles = read_angles(data)
 
-# Closing file 
-f.close() 
+    # Closing file 
+    f.close()
+     
+    return angles
+
+if __name__ == '__main__':
+    angles = get_angles(sys.argv[1],)
+    frame = 1
+    for angle in angles:
+        print('frame' , frame , ':' , angle)
+        frame+=1
