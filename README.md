@@ -20,7 +20,7 @@ python3 compare_vids.py <path to video file 1> <path to video file 2>
 ```
 python3 get_data.py <path to video file>
 ```
-Results will be saved in *results-<video name>* directory in .json format, as given at https://github.com/MVIG-SJTU/AlphaPose/blob/master/docs/output.md
+Results will be saved in *results-\<video name\>* directory in .json format, as given at https://github.com/MVIG-SJTU/AlphaPose/blob/master/docs/output.md
   
 3. Obtaining angles at shoulder and elbow from json
 ```
