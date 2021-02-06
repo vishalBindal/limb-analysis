@@ -20,7 +20,7 @@ def get_data_alphapose(path, results_dir_name, is_vid, get_rendered):
     # SCP data to the server
     subprocess.run(['scp', '-r', path, SERVER+':~/AlphaPose/'])
     # Run alphapose
-    end_path = path.split('/')[-1]
+    end_path = os.path.split(path)[-1]
     alph_cmd = 'echo ; source ~/miniconda3/bin/activate alphapose ; cd ~/AlphaPose ;'
     alph_cmd += 'python scripts/demo_inference.py --cfg configs/coco/resnet/256x192_res50_lr1e-3_1x.yaml --checkpoint pretrained_models/fast_res50_256x192.pth'
     if is_vid:

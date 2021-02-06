@@ -10,6 +10,7 @@ def calc_slope(p1,p2):
 
 def read_angles(data):
     angles = []
+    lengths = []
 
     for frame in data:
         joints = frame['keypoints']
@@ -46,7 +47,21 @@ def read_angles(data):
 
         angles.append((angle1,angle2,angle3,angle4))
 
-    return angles
+        #length1 is length of segment from left shoulder to left elbow
+        length1 = math.sqrt((left_shoulder[0] - left_elbow[0])**2 + (left_shoulder[1] - left_elbow[1])**2)
+
+        #length2 is length of segment from left elbow to left wrist
+        length2 = math.sqrt((left_wrist[0] - left_elbow[0])**2 + (left_wrist[1] - left_elbow[1])**2)
+
+        #length3 is length of segment from right shoulder to right elbow
+        length3 = math.sqrt((right_shoulder[0] - right_elbow[0])**2 + (right_shoulder[1] - right_elbow[1])**2)
+
+        #length4 is length of segment from right elbow to right wrist
+        length4 = math.sqrt((right_wrist[0] - right_elbow[0])**2 + (right_wrist[1] - right_elbow[1])**2)
+
+        lengths.append((length1, length2, length3, length4))
+
+    return angles, lengths
 
 def get_angles(file_path):
     # Opening JSON file 
